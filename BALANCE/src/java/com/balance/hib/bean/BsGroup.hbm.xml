@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24 Jul, 2012 10:36:09 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.balance.hib.bean.BsGroup" table="BS_Group"  >
+        <id name="bsId" type="java.lang.Integer">
+            <column name="BS_Id" />
+            <generator class="increment" />
+        </id>
+        <property name="bsName" type="string">
+            <column name="BS_Name" length="50" not-null="true" />
+        </property>
+        <property name="bsInitial" type="string">
+            <column name="BS_Initial" length="20" not-null="true" />
+        </property>
+        <set name="bsHeads" inverse="true">
+            <key>
+                <column name="BS_Id" not-null="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.BsHead" />
+        </set>
+    </class>
+</hibernate-mapping>

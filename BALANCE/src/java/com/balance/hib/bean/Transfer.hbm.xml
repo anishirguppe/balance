@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11 Dec, 2012 7:03:56 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.balance.hib.bean.Transfer" table="Transfer" catalog="balance">
+        <id name="transferId" type="int">
+            <column name="Transfer_Id" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bsHead" class="com.balance.hib.bean.BsHead" fetch="select">
+            <column name="Transfer_Category" not-null="true" unique="true" />
+        </many-to-one>
+        <many-to-one name="userAccountDetailsByTransferSaccount" class="com.balance.hib.bean.UserAccountDetails" fetch="select">
+            <column name="Transfer_SAccount" unique="true" />
+        </many-to-one>
+        <many-to-one name="userDetails" class="com.balance.hib.bean.UserDetails" fetch="select">
+            <column name="User_Id" unique="true" />
+        </many-to-one>
+        <many-to-one name="userAccountDetailsByTransferDaccount" class="com.balance.hib.bean.UserAccountDetails" fetch="select">
+            <column name="Transfer_DAccount" unique="true" />
+        </many-to-one>
+        <property name="transferDate" type="date">
+            <column name="Transfer_Date" length="10" />
+        </property>
+        <property name="transferAmount" type="double">
+            <column name="Transfer_Amount" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="transferRemarks" type="string">
+            <column name="Transfer_Remarks" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="balance"/>
+  <table-filter match-name="UserAccountDetails"/>
+  <table-filter match-name="UserDetails"/>
+  <table-filter match-name="IncomeEntry"/>
+  <table-filter match-name="ExpenseEntry"/>
+  <table-filter match-name="BS_Head"/>
+  <table-filter match-name="BS_Group"/>
+  <table-filter match-name="BS_Sub_Head"/>
+</hibernate-reverse-engineering>

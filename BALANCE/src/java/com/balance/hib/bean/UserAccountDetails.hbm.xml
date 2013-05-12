@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24 Jul, 2012 10:36:09 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.balance.hib.bean.UserAccountDetails" table="UserAccountDetails" >
+        <id name="userAccountId" type="int">
+            <column name="UserAccountId" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bsHead" class="com.balance.hib.bean.BsHead" fetch="select">
+            <column name="User_BS_Head_Id" />
+        </many-to-one>
+        <many-to-one name="bsSubHead" class="com.balance.hib.bean.BsSubHead" fetch="select">
+            <column name="User_BS_Sub_Head_Id" />
+        </many-to-one>
+      <many-to-one name="userDetails" class="com.balance.hib.bean.UserDetails" fetch="select">
+            <column name="UserId" not-null="true" />
+      </many-to-one>
+        <property name="userAccountName" type="string">
+            <column name="UserAccountName" length="50" not-null="true" />
+        </property>
+        <property name="userAccountBankName" type="string">
+            <column name="UserAccountBankName" length="50" not-null="true" />
+        </property>
+        <property name="userAccountBankBranch" type="string">
+            <column name="UserAccountBankBranch" length="50" not-null="true" />
+        </property>
+        <property name="userAccountNo" type="string">
+            <column name="UserAccountNo" length="50" />
+        </property>
+        <property name="openingBalance" type="java.lang.Long">
+            <column name="OpeningBalance" />
+        </property>
+        <set name="expenseEntries" inverse="true">
+            <key>
+                <column name="Expense_Account" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.ExpenseEntry" />
+        </set>
+        <set name="incomeEntries" inverse="true">
+            <key>
+                <column name="Income_Account" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.IncomeEntry" />
+        </set>
+         <set name="transfersForTransferDaccount" inverse="true">
+            <key>
+                <column name="Transfer_DAccount" unique="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.Transfer" />
+        </set>
+        <set name="transfersForTransferSaccount" inverse="true">
+            <key>
+                <column name="Transfer_SAccount" unique="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.Transfer" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24 Jul, 2012 10:36:09 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.balance.hib.bean.BsHead" table="BS_Head" >
+        <id name="bsHeadId" type="java.lang.Integer">
+            <column name="BS_Head_Id" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bsGroup" class="com.balance.hib.bean.BsGroup" fetch="select">
+            <column name="BS_Id" not-null="true" />
+        </many-to-one>
+        <property name="bsHeadName" type="string">
+            <column name="BS_Head_Name" length="50" not-null="true" />
+        </property>
+        <property name="bsHeadInitial" type="string">
+            <column name="BS_Head_Initial" length="20" not-null="true" />
+        </property>
+        <set name="expenseEntries" inverse="true">
+            <key>
+                <column name="Expense_Category" not-null="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.ExpenseEntry" />
+        </set>
+        <set name="userAccountDetailses" inverse="true">
+            <key>
+                <column name="User_BS_Head_Id" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.UserAccountDetails" />
+        </set>
+        <set name="bsSubHeads" inverse="true">
+            <key>
+                <column name="BS_Head_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.BsSubHead" />
+        </set>
+        <set name="incomeEntries" inverse="true">
+            <key>
+                <column name="Income_Category" not-null="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.IncomeEntry" />
+        </set>
+        <set name="transfers" inverse="true">
+            <key>
+                <column name="Transfer_Category" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.Transfer" />
+        </set>
+    </class>
+</hibernate-mapping>

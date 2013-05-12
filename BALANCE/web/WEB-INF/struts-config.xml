@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+
+<struts-config>
+    
+    
+    <form-beans>
+<!--        ADD GROUP-->
+        <form-bean name="n_basicgroup" type="org.apache.struts.validator.DynaValidatorActionForm"  >
+            <form-property name="bsgroupname" type="java.lang.String"></form-property>
+            <form-property name="bsgroupinitial" type="java.lang.String" />
+            <form-property name="v_hidden" type="java.lang.String"></form-property>
+        </form-bean>
+<!--    ADD HEAD GROUP-->
+        <form-bean name="n_basichead" type="org.apache.struts.validator.DynaValidatorActionForm" >
+            <form-property name="bsheadgroupid" type="java.lang.Integer"/>
+            <form-property name="bsheadname" type="java.lang.String"/>
+            <form-property name="bsheadinitial" type="java.lang.String"/>
+            <form-property name="v_hidden" type="java.lang.String"></form-property>
+        </form-bean>
+    
+<!--    add basic SUB head-->
+        <form-bean name="n_basicsubhead" type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="bsheadgroupid" type="java.lang.Integer"/>
+            <form-property name="bssubheadid" type="java.lang.Integer"/>
+            <form-property name="bssubheadname" type="java.lang.String"/>
+            <form-property name="bssubheadinitial" type="java.lang.String"/>
+            <form-property name="v_hidden" type="java.lang.String"></form-property>
+        </form-bean>
+<!--     adduser-->
+        <form-bean name="adduser" type="org.apache.struts.validator.DynaValidatorActionForm" >
+            <form-property name="username" type="java.lang.String"/>
+            <form-property name="profilename" type="java.lang.String"/>
+            <form-property name="dob" type="java.lang.String"/>
+            <form-property name="usergender" type="java.lang.String"/>
+            <form-property name="address" type="java.lang.String"/>
+            <form-property name="marriedstatus" type="java.lang.String"/>
+            <form-property name="child" type="java.lang.String"/>
+            <form-property name="userrelevantid" type="java.lang.String"/>
+            <form-property name="v_hidden" type="java.lang.String"></form-property>
+        </form-bean>
+    
+        <form-bean name="n_addaccount" type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="accountname" type="java.lang.String"/> 
+            <form-property name="accounttype" type="java.lang.String"/>
+            <form-property name="bssubheadid" type="java.lang.String"/>
+            <form-property name="bankname" type="java.lang.String"/> 
+            <form-property name="branchname" type="java.lang.String"/> 
+            <form-property name="accountno" type="java.lang.String"/> 
+            <form-property name="openingbalance" type="java.lang.String"/> 
+            <form-property name="v_hidden" type="java.lang.String"></form-property>
+        
+        
+        </form-bean>
+
+          <form-bean name="n_transfer" type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="category" type="java.lang.String"/>
+            <form-property name="srelevantAccount" type="java.lang.String"/>
+            <form-property name="drelevantAccount" type="java.lang.String"/>
+            <form-property name="date" type="java.lang.String"/>
+           <form-property name="amount" type="java.lang.String"/>
+            <form-property name="remarks" type="java.lang.String"/>
+            <form-property name="v_hidden" type="java.lang.String"></form-property>
+
+
+        </form-bean>
+
+    
+        <form-bean name="n_login" type="org.apache.struts.validator.DynaValidatorActionForm" >
+        
+            <form-property name="username" type="java.lang.String"/> 
+            <form-property name="password" type="java.lang.String"/>
+            <form-property name="v_hidden" type="java.lang.String"></form-property>
+        </form-bean>
+        <form-bean name="n_addincome" type="org.apache.struts.validator.DynaValidatorActionForm" >
+            <form-property name="category" type="java.lang.String" />
+            <form-property name="subcategory" type="java.lang.String" />
+            <form-property name="relevantAccount" type="java.lang.String"/> 
+            <form-property name="date" type="java.lang.String"/>
+            <form-property name="amount" type="java.lang.String"/>
+            <form-property name="remarks" type="java.lang.String"/>
+            <form-property name="v_hidden" type="java.lang.String"></form-property>
+        </form-bean>
+    
+        <form-bean name="n_addexpense" type="org.apache.struts.validator.DynaValidatorActionForm" >
+            <form-property name="category" type="java.lang.String" />
+            <form-property name="subcategory1" type="java.lang.String" />
+            <form-property name="relevantAccount" type="java.lang.String"/> 
+            <form-property name="relevantUser" type="java.lang.String"/> 
+            <form-property name="date" type="java.lang.String"/>
+            <form-property name="amount" type="java.lang.String"/>
+            <form-property name="remarks" type="java.lang.String"/>
+            <form-property name="v_hidden" type="java.lang.String"></form-property>
+        </form-bean>
+        
+<!--        create user-->
+
+        <form-bean name="n_createuser" type="org.apache.struts.validator.DynaValidatorActionForm" >
+            <form-property name="fname" type="java.lang.String"/>
+            <form-property name="lname" type="java.lang.String"/>
+            <form-property name="mobileno" type="java.lang.String"/>
+            <form-property name="mail" type="java.lang.String"/>
+            <form-property name="profilename" type="java.lang.String"/>
+            <form-property name="dob" type="java.lang.String"/>
+            <form-property name="usergender" type="java.lang.String"/>
+            <form-property name="address" type="java.lang.String"/>
+            <form-property name="marriedstatus" type="java.lang.String"/>
+            <form-property name="child" type="java.lang.String"/>
+            <form-property name="userpassword" type="java.lang.String"/>
+            <form-property name="repassword" type="java.lang.String"/>
+            <form-property name="v_hidden" type="java.lang.String"/>
+        </form-bean>
+    
+    </form-beans>
+   
+    
+    <global-exceptions>
+    
+    </global-exceptions>
+
+    <global-forwards>
+        <forward name="welcome"  path="/Welcome.do"/>
+    </global-forwards>
+
+    <action-mappings>
+<!--FOR LINK       -->
+<action path="/l_index" type="org.apache.struts.actions.ForwardAction" parameter="/jsp/login.jsp" scope="request" />
+        <action path="/Welcome" forward="/jsp/login.jsp"  />
+        <action path="/l_logout" type="org.apache.struts.actions.ForwardAction"  parameter="/Myindex.jsp"  scope="request" />
+        <action path="/l_basicgroup" type="org.apache.struts.actions.ForwardAction"  parameter="/jsp/basicgroup.jsp" scope="request" />
+        <action path="/l_addaccount" type="org.apache.struts.actions.ForwardAction" parameter="/jsp/addaccount.jsp" scope="request" />
+
+ <action path="/l_transfer" type="org.apache.struts.actions.ForwardAction" parameter="/jsp/transfer.jsp" scope="request" />
+        <action path="/l_addincome" type="org.apache.struts.actions.ForwardAction" parameter="/jsp/addincome.jsp" scope="request" />        
+        <action path="/l_addexpense" type="org.apache.struts.actions.ForwardAction"  parameter="/jsp/ExpenseEntry.jsp" scope="request" />
+        <action path="/l_basichead" type="com.balance.util.GetDropDownBSG" scope="request" >
+            <forward name="headsuccess" path="/jsp/basichead.jsp"/>
+            <forward name="subsuccess" path="/jsp/basicsubhead.jsp"/>
+        </action>
+        <action path="/l_basicsubhead" type="com.balance.util.GetDropDownBSGH"  scope="request">
+            <forward name="success" path="/jsp/basicsubhead.jsp"/>
+        </action>
+           
+        <action path="/l_newuser" type="org.apache.struts.actions.ForwardAction" parameter="/jsp/newuser.jsp" />
+        <action path="/l_createuser" type="org.apache.struts.actions.ForwardAction" parameter="/jsp/createUser.jsp" />
+        <action path="/l_viewincome" type="org.apache.struts.actions.ForwardAction" parameter="/jsp/viewIncome.jsp"  />
+    <action path="/l_calBalance" type="com.balance.action.CalBalanceAction" scope="request" >
+        
+    </action>
+
+<!-- FOR ACTION      -->
+        <action path="/a_basicgroup" name="n_basicgroup" scope="request" attribute="n_basicgroup"  type="com.balance.action.AddBasicGroup" validate="true" >
+            <forward name="SUCCESS" path="/welcomeStruts.jsp" />
+        </action>
+        <action  path="/a_basichead"  name="n_basichead" attribute="n_basichead"  scope="request" validate="true" type="com.balance.action.AddBasicHead">
+            <forward name="SUCCESS" path="/welcomeStruts.jsp" />
+        </action>
+        
+        <action  path="/a_basicsubhead"  name="n_basicsubhead" attribute="n_basicsubhead"  scope="request" type="com.balance.action.AddBasicSubHead" validate="true">
+            <forward name="SUCCESS" path="/welcomeStruts.jsp" />
+        </action>
+        
+   <action path="/a_login" type="com.balance.action.LoginAction" name="n_login" scope="request" >
+            <forward name="SUCCESS" path="/welcomeStruts.jsp" />
+            <forward name="ERROR"  path="/jsp/login.jsp" />
+        </action>
+            
+        <action path="/a_addincome" scope="request" type="com.balance.action.AddIncomeAction" name="n_addincome">
+            <forward name="SUCCESS" path="/welcomeStruts.jsp" />
+            </action>
+          <action path="/adduser" type="com.balance.action.AddUserAction" name="adduser" attribute="adduser" scope="request"  >
+              <forward name="SUCCESS" path="/welcomeStruts.jsp" />
+            </action>
+     <action path="/a_addaccount" type="com.balance.action.AddAccountAction" name="n_addaccount" scope="request" validate="true">
+        <forward name="SUCCESS" path="/welcomeStruts.jsp" />
+            </action>
+        <action path="/a_addexpense" scope="request" type="com.balance.action.AddExpenseAction" name="n_addexpense">
+            <forward name="SUCCESS" path="/welcomeStruts.jsp" />
+            </action>
+            
+          <action path="/a_transfer" scope="request" type="com.balance.action.AddTransferAction" name="n_transfer">
+              <forward name="SUCCESS" path="/welcomeStruts.jsp" />
+            </action>
+
+        
+        <action path="/a_createuser" scope="request" type="com.balance.action.AddNewUserAccountAction" name="n_createuser">
+            <forward name="SUCCESS" path="/jsp/login.jsp" />
+        </action>
+        
+   <!-- AJAX --> 
+        <action  path="/dropdownajax"
+                 parameter="method"
+                 type="com.balance.action.DropDownAjaxAction"/>
+        <action  path="/checkvalue"
+                 parameter="method"   
+                 type="com.balance.action.CheckValueAction">
+         
+        </action>
+        
+        
+       
+        
+      
+    </action-mappings>
+    
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+
+    <message-resources parameter="com/myapp/struts/ApplicationResource"/>    
+    
+    <!-- ========================= Tiles plugin ===============================-->
+    <!--
+    This plugin initialize Tiles definition factory. This later can takes some
+    parameters explained here after. The plugin first read parameters from
+    web.xml, thenoverload them with parameters defined here. All parameters
+    are optional.
+    The plugin should be declared in each struts-config file.
+    - definitions-config: (optional)
+    Specify configuration file names. There can be several comma
+    separated file names (default: ?? )
+    - moduleAware: (optional - struts1.1)
+    Specify if the Tiles definition factory is module aware. If true
+    (default), there will be one factory for each Struts module.
+    If false, there will be one common factory for all module. In this
+    later case, it is still needed to declare one plugin per module.
+    The factory will be initialized with parameters found in the first
+    initialized plugin (generally the one associated with the default
+    module).
+    true : One factory per module. (default)
+    false : one single shared factory for all modules
+    - definitions-parser-validate: (optional)
+    Specify if xml parser should validate the Tiles configuration file.
+    true : validate. DTD should be specified in file header (default)
+    false : no validation
+
+    Paths found in Tiles definitions are relative to the main context.
+    -->
+    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />      
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+    
+    <!-- ========================= Validator plugin ================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property
+            property="pathnames"
+            value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+        <set-property property="stopOnFirstError" value="false"/>
+
+    </plug-in>
+  
+</struts-config>

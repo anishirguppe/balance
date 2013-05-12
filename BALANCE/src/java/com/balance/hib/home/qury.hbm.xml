@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 30 Jun, 2012 3:58:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+   
+     <query name="getAccount" >
+      <![CDATA[ from BsHead bh where bh.bsHeadName in
+      ('saving account','cash','current account','credit card','Stocks',
+'Fixed Deposits',
+'Statutory Providend Fund',
+'Unit Linked Insurance Policies',
+'Systematic Investment Plan',
+'House Property',
+'PPF',
+'Infrastructure Bond',
+'Loan'
+
+)  ]]>
+<!--  <![CDATA[ from BsHead bh  ]]>-->
+    </query>
+    <sql-query name="getAsset">
+     <![CDATA[
+select a.UserAccountId,  sum(a.Openingbalance),a.UserAccountName from UserAccountDetails a,  BS_Group g ,BS_Head h
+where g.BS_Name='Asset'
+and g.BS_Id=h.BS_Id
+and h.BS_Head_Id=a.User_BS_Head_Id
+and a.UserId=:USERID
+group by a.UserAccountId
+
+       
+
+        ]]>
+        </sql-query>
+
+    <sql-query name="getCurrentAsset">
+     <![CDATA[
+
+select a.UserAccountId,  sum(a.Openingbalance),a.UserAccountName from UserAccountDetails a,  BS_Group g ,BS_Head h
+where g.BS_Name='Current Asset'
+and g.BS_Id=h.BS_Id
+and h.BS_Head_Id=a.User_BS_Head_Id
+and a.UserId=:USERID
+group by a.UserAccountId
+
+ ]]>
+</sql-query>
+
+<sql-query name="getCurrentLiabilities">
+     <![CDATA[
+
+select a.UserAccountId, sum(a.Openingbalance),a.UserAccountName from UserAccountDetails a,  BS_Group g ,BS_Head h
+where g.BS_Name='Current Liability '
+and g.BS_Id=h.BS_Id
+and h.BS_Head_Id=a.User_BS_Head_Id
+and a.UserId=:USERID
+group by a.UserAccountId
+ ]]>
+</sql-query>
+
+<sql-query name="getLiabilites">
+     <![CDATA[
+select a.UserAccountId,  sum(a.Openingbalance),a.UserAccountName from UserAccountDetails a,  BS_Group g ,BS_Head h
+where g.BS_Name='Liabilites'
+and g.BS_Id=h.BS_Id
+and h.BS_Head_Id=a.User_BS_Head_Id
+and a.UserId=:USERID
+group by a.UserAccountId
+ ]]>
+</sql-query>
+
+<sql-query name="getIncomeACwise">
+<![CDATA[
+select i.Income_Account, sum( i.Income_Amount),h.BS_Head_Id
+from IncomeEntry i,BS_Group g, BS_Head h, BS_Sub_Head s
+where g.BS_Id=h.BS_Id
+and h.BS_Head_Id=s.BS_Head_ID 
+and i.Income_Sub_Category=s.BS_Sub_Head_Id
+and i.User_Id=:USERID
+and i.Income_Category=h.BS_Head_Id
+group by h.BS_Head_Id,i.Income_Account
+
+]]>
+</sql-query>
+
+<sql-query name="getExpenseACwise">
+<![CDATA[
+select e.Expense_Account,sum( e.Expense_Amount), h.BS_Head_Id
+from ExpenseEntry e,BS_Group g, BS_Head h, BS_Sub_Head s
+where g.BS_Id=h.BS_Id
+and h.BS_Head_Id=s.BS_Head_ID
+and e.Expense_Sub_Category=s.BS_Sub_Head_Id
+and e.User_Id=:USERID
+and e.Expense_Category=h.BS_Head_Id
+group by h.BS_Head_Id,e.Expense_Account
+
+]]>
+</sql-query>
+
+
+<sql-query name="getTransfer">
+<![CDATA[
+
+SELECT T.Transfer_Category,T.Transfer_SAccount,
+IFNULL(T.Transfer_DAccount,0),
+sum(T.Transfer_Amount)
+FROM Transfer T
+WHERE T.User_Id =:USERID
+GROUP BY
+T.Transfer_Category,
+T.Transfer_SAccount,
+T.Transfer_DAccount
+
+]]>
+</sql-query>
+
+<sql-query name="getAcIdForCash" >
+ <![CDATA[   select distinct(ua.UserAccountId) from UserAccountDetails ua,
+ BS_Head h  where ua.User_BS_Head_Id=h.BS_Head_Id
+ and h.BS_Head_Name ='cash' and ua.UserId=:USERID
+ ]]>
+
+</sql-query>
+<sql-query name="getCAR" >
+     <![CDATA[
+select h.BS_Head_name, sum( i.Income_Amount)
+from IncomeEntry i,BS_Group g, BS_Head h, BS_Sub_Head s
+where g.BS_Id=h.BS_Id
+and h.BS_Head_Id=s.BS_Head_ID
+and i.Income_Sub_Category=s.BS_Sub_Head_Id
+and i.User_Id=:USERID
+and i.Income_Category=h.BS_Head_Id
+group by h.BS_Head_Id
+ ]]>
+ </sql-query>
+<sql-query name="getEXP" >
+     <![CDATA[
+select h.BS_Head_Name, sum( e.Expense_Amount) from ExpenseEntry e,BS_Group g, BS_Head h, BS_Sub_Head s
+where g.BS_Id=h.BS_Id
+and h.BS_Head_Id=s.BS_Head_ID
+and e.Expense_Sub_Category=s.BS_Sub_Head_Id
+and e.User_Id=:USERID
+and e.Expense_Category=h.BS_Head_Id
+group by h.BS_Head_Id
+ ]]>
+ </sql-query>
+
+<sql-query name="getReceivable" >
+     <![CDATA[
+
+select e.Expense_Account,sum( e.Expense_Amount), h.BS_Head_Id
+from ExpenseEntry e,BS_Group g, BS_Head h, BS_Sub_Head s
+where g.BS_Id=h.BS_Id
+and h.BS_Head_Id=s.BS_Head_ID
+and h.BS_Head_Name='Receivable'
+and e.Expense_Sub_Category=s.BS_Sub_Head_Id
+and e.User_Id=:USERID
+and e.Expense_Category=h.BS_Head_Id
+group by h.BS_Head_Id,e.Expense_Account
+ ]]>
+ </sql-query>
+
+
+
+<sql-query name="getUserDetails" >
+     <![CDATA[
+
+select * from userdetails  u where u.UserProfileName=:USERNAME
+ ]]>
+ </sql-query>
+
+
+</hibernate-mapping>

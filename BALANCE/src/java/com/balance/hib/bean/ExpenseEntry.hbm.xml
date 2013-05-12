@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24 Jul, 2012 10:36:09 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.balance.hib.bean.ExpenseEntry" table="ExpenseEntry" >
+        <id name="expenseId" type="int">
+            <column name="Expense_Id" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bsSubHead" class="com.balance.hib.bean.BsSubHead" fetch="select">
+            <column name="Expense_Sub_Category" not-null="true" />
+        </many-to-one>
+        <many-to-one name="bsHead" class="com.balance.hib.bean.BsHead" fetch="select">
+            <column name="Expense_Category" not-null="true" />
+        </many-to-one>
+        <many-to-one name="userDetails" class="com.balance.hib.bean.UserDetails" fetch="select">
+            <column name="User_Id" />
+        </many-to-one>
+        <many-to-one name="userAccountDetails" class="com.balance.hib.bean.UserAccountDetails" fetch="select">
+            <column name="Expense_Account" />
+        </many-to-one>
+        <property name="expenseDate" type="date">
+            <column name="Expense_Date" length="10" />
+        </property>
+        <property name="expenseAmount" type="double">
+            <column name="Expense_Amount" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="expenseRemarks" type="string">
+            <column name="Expense_Remarks" length="50" />
+        </property>
+        <property name="relevantUser" type="int">
+            <column name="Relevant_User" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

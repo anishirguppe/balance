@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24 Jul, 2012 10:36:09 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.balance.hib.bean.BsSubHead" table="BS_Sub_Head" >
+        <id name="bsSubHeadId" type="java.lang.Integer">
+            <column name="BS_Sub_Head_Id" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bsHead" class="com.balance.hib.bean.BsHead" fetch="select">
+            <column name="BS_Head_ID" not-null="true" />
+        </many-to-one>
+        <property name="bsSubHeadName" type="string">
+            <column name="BS_Sub_Head_Name" length="50" not-null="true" />
+        </property>
+        <property name="bsSubHeadInitial" type="string">
+            <column name="BS_Sub_Head_Initial" length="20" not-null="true" />
+        </property>
+        <set name="incomeEntries" inverse="true">
+            <key>
+                <column name="Income_Sub_Category" not-null="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.IncomeEntry" />
+        </set>
+        <set name="expenseEntries" inverse="true">
+            <key>
+                <column name="Expense_Sub_Category" not-null="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.ExpenseEntry" />
+        </set>
+    </class>
+</hibernate-mapping>

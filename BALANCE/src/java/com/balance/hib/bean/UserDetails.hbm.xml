@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24 Jul, 2012 10:36:09 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.balance.hib.bean.UserDetails" table="UserDetails" >
+        <id name="userId" type="java.lang.Integer">
+            <column name="UserId" />
+            <generator class="increment" />
+        </id>
+        <property name="userName" type="string">
+            <column name="UserName" length="50" not-null="true" />
+        </property>
+        <property name="userProfileName" type="string">
+            <column name="UserProfileName" length="50" />
+        </property>
+        <property name="userDob" type="date">
+            <column name="UserDOB" length="10" />
+        </property>
+         <property name="mobileNo" type="java.lang.Integer">
+            <column name="MobileNo"  />
+        </property>
+        <property name="mailId" type="string">
+            <column name="MailId" length="100" />
+        </property>
+        <property name="password" type="string">
+            <column name="Password" length="100" />
+        </property>
+        <property name="userGender" type="string">
+            <column name="UserGender" length="10" />
+        </property>
+        <property name="userRelevantId" type="java.lang.Integer">
+            <column name="UserRelevantId" />
+        </property>
+        <property name="userAddress" type="string">
+            <column name="UserAddress" length="100" />
+        </property>
+        <property name="marriedStatus" type="string">
+            <column name="MarriedStatus" length="10" />
+        </property>
+        <property name="noOfChild" type="string">
+            <column name="NoOfChild" length="10" />
+        </property>
+        <set name="incomeEntries" inverse="true">
+            <key>
+                <column name="User_Id" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.IncomeEntry" />
+        </set>
+        <set name="userAccountDetailses" inverse="true">
+            <key>
+                <column name="UserId" not-null="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.UserAccountDetails" />
+        </set>
+        <set name="expenseEntries" inverse="true">
+            <key>
+                <column name="User_Id" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.ExpenseEntry" />
+        </set>
+        <set name="transfers" inverse="true">
+            <key>
+                <column name="User_Id" unique="true" />
+            </key>
+            <one-to-many class="com.balance.hib.bean.Transfer" />
+        </set>
+    </class>
+</hibernate-mapping>

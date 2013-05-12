@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+
+        <!-- An example global constant
+        <constant>
+            <constant-name>postalCode</constant-name>
+            <constant-value>^\d{5}\d*$</constant-value>
+        </constant>
+        end example-->
+
+    </global>
+
+    <formset>
+
+        <!-- An example form -->
+        <form name="n_basicgroup" >
+            <field
+                property="bsgroupname"
+                depends="required">
+                   <arg  key="error.basicgroupname"/>
+
+            </field>
+          <field  property="bsgroupinitial"
+                    depends="required">
+                        <arg  key="error.basicgroupinitial"/>
+
+                    </field>
+            
+        </form>
+        <form name="n_basichead">
+            <field property="bsheadgroupid" depends="required">
+                
+                <arg key="error.bsheadgroupid"/>
+            </field>
+            <field  property="bsheadname" depends="required">
+                <arg key="error.bsheadname"/>
+                </field>
+                 <field  property="bsheadinitial" depends="required">
+                <arg key="error.bsheadinitial"/>
+                </field>
+            </form>
+
+<form name="n_basicsubhead">
+    <field property="bsheadgroupid" depends="required">
+        <arg key="error.basicgroupname"/>        
+        
+    </field>
+    <field property="bssubheadid" depends="required">
+          <arg key="error.bsheadname"/>
+     </field>
+    <field  property="bssubheadname" depends="required">
+        <arg key="error.bssubheadname"/>
+</field>    
+  <field  property="bssubheadinitial" depends="required">
+        <arg key="error.bssubheadinitial"/>
+</field>    
+    
+</form>
+<form name="adduser">
+
+    <field property="username" depends="required" ><arg key="error.username" ></arg> </field>
+    <field property="profilename" depends="required" ><arg key="error.profilename" ></arg> </field>
+    
+    <field property="dob" depends="required" ><arg key="error.dob" ></arg> </field>
+       <field property="address" depends="required" ><arg key="error.address" ></arg> </field>
+    <field property="userrelevantid" depends="required" ><arg key="error.userrelevantid" ></arg> </field>
+    
+</form>
+    </formset>
+
+    <!-- An example formset for another locale -->
+   
+
+</form-validation>
