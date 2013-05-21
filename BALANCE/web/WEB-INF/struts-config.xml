@@ -149,7 +149,7 @@
         <action path="/l_createuser" type="org.apache.struts.actions.ForwardAction" parameter="/jsp/createUser.jsp" />
         <action path="/l_viewincome" type="org.apache.struts.actions.ForwardAction" parameter="/jsp/viewIncome.jsp"  />
     <action path="/l_calBalance" type="com.balance.action.CalBalanceAction" scope="request" >
-        
+        <forward name="SUCCESS" path="/jsp/finalBalance.jsp" />
     </action>
 
 <!-- FOR ACTION      -->

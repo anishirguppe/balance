@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 24 Jul, 2012 10:36:09 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="com.balance.hib.bean.IncomeEntry" table="IncomeEntry" catalog="balance">
+    <class name="com.balance.hib.bean.IncomeEntry" table="IncomeEntry" >
         <id name="incomeId" type="java.lang.Integer">
             <column name="Income_Id" />
             <generator class="increment" />

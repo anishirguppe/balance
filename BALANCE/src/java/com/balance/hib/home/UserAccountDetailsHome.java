@@ -160,5 +160,55 @@ public class UserAccountDetailsHome {
             throw re;
         }
     }
+
+     static public List<UserAccountDetails> findPayableAccountByUser(UserDetails instance) {
+        log.debug("finding UserAccountDetails instance by example");
+        try {
+
+            String q= "from UserAccountDetails u where u.bsHead=6 and  u.userDetails="+instance.getUserId().toString();
+            List<UserAccountDetails> results = HibernateSessionFactory.getSession().createQuery(q).list();
+            log.debug("find by /user successful, result size: " + results.size());
+            return results;
+        }
+        catch (RuntimeException re) {
+            log.error("find by example failed", re);
+            throw re;
+        }
+    }
+
+    public boolean isReceivableAC(Integer sourceAC) {
+        log.debug("finding UserAccountDetails instance by example");
+        try {
+
+            String q= "from UserAccountDetails u where u.bsHead=4 and u.userAccountId="+sourceAC;
+            List<UserAccountDetails> results = HibernateSessionFactory.getSession().createQuery(q).list();
+            log.debug("find by /user successful, result size: " + results.size());
+
+            return results.size()>0 ? Boolean.TRUE : Boolean.FALSE;
+        }
+        catch(Exception e){
+
+            return Boolean.FALSE;
+        }
+
+    }
+
+    public boolean isPayableAC(Integer sourceAC) {
+        log.debug("finding UserAccountDetails instance by example");
+        try {
+
+            String q= "from UserAccountDetails u where u.bsHead=6 and u.userAccountId="+sourceAC;
+            List<UserAccountDetails> results = HibernateSessionFactory.getSession().createQuery(q).list();
+            log.debug("find by /user successful, result size: " + results.size());
+
+            return results.size()>0 ? Boolean.TRUE : Boolean.FALSE;
+        }
+        catch(Exception e){
+
+            return Boolean.FALSE;
+        }
+    }
+
+
 }
 

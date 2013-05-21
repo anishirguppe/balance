@@ -27,12 +27,17 @@
                 <logic:notPresent name="user" scope="session"> 
                     <li class="first">
                         
-                        <html:link action="l_index">Login</html:link></li>
+                        <html:link action="a_login">Login</html:link></li>
                 </logic:notPresent>
-                <li>
-<a href="#">
-    Services</a>
+                  <logic:present name="user" scope="session">
+                    <li>
+                        <a href="welcomeStruts.jsp"> Services</a>
+                    </li> </logic:present>
+                 <logic:notPresent name="user" scope="session">
+                    <li>
+                       <a href="#"> Services</a>
                     </li>
+                 </logic:notPresent>
                 <li><a href="#">Products</a></li>
 
                 <li><a href="#">

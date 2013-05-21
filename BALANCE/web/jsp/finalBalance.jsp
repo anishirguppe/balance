@@ -6,10 +6,22 @@
 
 <%@page import="java.util.Map"%>
 <%@page import="com.balance.hib.util.BalanceCalUtil"%>
-<%@include file="init.jsp" %> 
+<%@include file="init.jsp" %>
+
+<div id="wrapper">
+
+        <div>
+            <jsp:include page="header.jsp" flush="true"/>
+        </div>
+
 <%
- 
-Map <String,Map> bfrct_account=BalanceCalUtil.finalBalanceSheet(3);
+int userID=0;
+        if(request.getAttribute("userID")!=null)
+             {
+          userID =Integer.parseInt(request.getAttribute("userID").toString());
+              }
+
+Map <String,Map> bfrct_account=BalanceCalUtil.finalBalanceSheet(userID);
 
         Map<Integer,Double> cLai=   bfrct_account.get("Current Liabilites");// cLia
         Map<Integer,Double> cAsset=bfrct_account.get("Current Assets");// cAsset;
@@ -27,7 +39,7 @@ System.out.println("\n----Assets-------\n");
 //BalanceCalUtil.printMapByAcNameInHtml(basset);
 
 %>
-<table border="1" align="left" style="vertical-align:text-top; ">
+<table border="1" align="left" width="100%" style="vertical-align:text-top; ">
      <tbody>
          <tr style="background-color: wheat" >
              <td style="vertical-align: text-top;">
@@ -48,7 +60,7 @@ System.out.println("\n----Assets-------\n");
             <td>
             
 
-                        <%=BalanceCalUtil.calCAR(3)%>
+                        <%=BalanceCalUtil.calCAR(userID)%>
 
 
 
@@ -67,7 +79,7 @@ System.out.println("\n----Assets-------\n");
             </td>
         </tr>
         <tr>
-            <td style="vertical-align: text-top; " > <%=BalanceCalUtil.calEXP(3)%></td>
+            <td style="vertical-align: text-top; " > <%=BalanceCalUtil.calEXP(userID)%></td>
             <td style="vertical-align: text-top;" > <%=BalanceCalUtil.printMapByAcNameInHtml(cAsset)%></td>
 
         </tr>
@@ -95,4 +107,4 @@ System.out.println("\n----Assets-------\n");
         <tr><td><%=BalanceCalUtil.printMapByAcNameInHtml(cLai)%></td></tr>
     </tbody>
 </table>
-
+</div>

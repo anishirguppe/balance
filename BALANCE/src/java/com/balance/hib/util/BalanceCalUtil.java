@@ -152,6 +152,30 @@ public class BalanceCalUtil {
                     // opening bal or pervious opening balance
                 }
 
+                if (head == 6) // for Payable
+                {
+                    UserDetails ud = new UserDetails();
+                    ud.setUserId(userid);
+                    List<UserAccountDetails> usels = UserAccountDetailsHome.findPayableAccountByUser(ud);
+                    UserAccountDetails useds = usels.get(0);
+                    Integer accountid = useds.getUserAccountId();
+                     Double expenseAmount1=0.0d;
+                    for (Iterator it1 = car.iterator(); it1.hasNext();) {
+                        Object IncomeDetails1[] = (Object[]) it1.next();
+                        Integer expenseAC1 = (Integer) IncomeDetails[0];
+                        if (expenseAC1 == accountid) {
+                       expenseAmount1  = (Double) IncomeDetails[1]; // Income amount
+                            Integer cat1 = (Integer) IncomeDetails[2];
+                            break;
+                        }
+                    }
+
+                    crntAstOB = expenseAmount1 + IncomeAmount;
+                    // currentAsset.remove(4);
+                    currentAsset.put(accountid, crntAstOB);
+                    System.out.println(" cyrrenst asset st" + currentAsset.entrySet());
+                }
+
 
                 crntAstOB = crntAstOB + IncomeAmount;
                 //System.out.println("\n c as" + crntAstOB);
@@ -190,6 +214,7 @@ public class BalanceCalUtil {
                 Double crntAstOB = 0d;
                 Set s = currentAsset.keySet();
 
+                
                 if (s.contains(expenseAC)) {
                     try {
                         String key = Integer.toString(expenseAC);
@@ -198,18 +223,15 @@ public class BalanceCalUtil {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
-
-                    // opening bal or pervious opening balance
+                   // opening bal or pervious opening balance
                 }
-                if (cat == 4) {
+                if (cat == 4) { // for  Receivable
                     UserDetails ud = new UserDetails();
                     ud.setUserId(userid);
                     List<UserAccountDetails> usels = UserAccountDetailsHome.findReceviableAccountByUser(ud);
                     UserAccountDetails useds = usels.get(0);
                     Integer accountid = useds.getUserAccountId();
-Double expenseAmount1=0.0d;
+                    Double expenseAmount1=0.0d;
                     for (Iterator it1 = expense.iterator(); it1.hasNext();) {
                         Object IncomeDetails1[] = (Object[]) it1.next();
                         Integer expenseAC1 = (Integer) IncomeDetails[0];
@@ -219,12 +241,12 @@ Double expenseAmount1=0.0d;
                             break;
                         }
                     }
-
                     crntAstOB = expenseAmount1 + expenseAmount;
                     // currentAsset.remove(4);
                     currentAsset.put(accountid, crntAstOB);
                     System.out.println(" cyrrenst asset st" + currentAsset.entrySet());
-                } else {
+                }
+                else {
                     crntAstOB = crntAstOB - expenseAmount;
                 }
 
@@ -294,7 +316,8 @@ Double expenseAmount1=0.0d;
 
 
         try {
-
+            UserAccountDetailsHome userAccountDetailsHome=new UserAccountDetailsHome();
+            UserAccountDetails userAccountDetails;
             Integer cashInHand = getAcIdForCash(userid);
             List transferLS = calTransfer(userid);
             printMap(allasset);
@@ -328,6 +351,11 @@ Double expenseAmount1=0.0d;
 
                 }//end if
                 else if (cat.equals(45)) {
+
+                    if(userAccountDetailsHome.isReceivableAC(sourceAC))
+                    {
+
+                    }
                     System.out.println("inside cat 45");
                     //for add  in destination ac
                     Double destinationAmount = Double.parseDouble(allasset.get(destinationAC).toString());
