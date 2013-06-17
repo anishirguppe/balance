@@ -6,8 +6,10 @@ package com.balance.util;
 
 import com.balance.hib.bean.ExpenseEntry;
 import com.balance.hib.bean.IncomeEntry;
+import com.balance.hib.bean.Transfer;
 import com.balance.hib.bean.UserAccountDetails;
 import com.balance.hib.bean.UserDetails;
+import com.balance.hib.home.TransferHome;
 import com.balance.hib.home.UserAccountDetailsHome;
 import com.balance.hib.home.UserDetailsHome;
 import com.balance.hib.util.HibernateSessionFactory;
@@ -74,7 +76,21 @@ public class CommonMethods {
         }
         return lsusracc;
     }
-    
+
+    public static List getTransferByUserId(UserDetails user) {
+        List<Transfer> lsusrtransfer = new ArrayList<Transfer>();
+        try {
+
+
+            System.out.println("user id" + user.getUserId());
+            lsusrtransfer = new TransferHome().findByProperty("userDetails",user);
+            System.out.println("list size" + lsusrtransfer.size());
+            //System.out.println("user id"+lsusracc.get(1).getUserAccountId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lsusrtransfer;
+    }
     public static java.sql.Date stringTOSqlDate(String strdate) {
         java.sql.Date sqlDate = null;
         try {

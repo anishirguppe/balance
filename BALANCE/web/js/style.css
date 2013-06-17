@@ -137,7 +137,7 @@ ul h4 {
 	background: #6E6E6E url(images/img03.jpg) top left no-repeat;
 	padding: 45px;
 	color: #FFFFFF;
-	width: 888px;
+	width: 1080px;
 	border: solid 1px #7E7E7E;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
@@ -425,7 +425,7 @@ ul h4 {
 
 #wrapper {
 	position: relative;
-	width: 980px;
+	width: 1180px;
 	margin: 75px auto 0 auto;
 	background: #FFFFFF;
 	border-radius: 6px;

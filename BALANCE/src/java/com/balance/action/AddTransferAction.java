@@ -12,6 +12,7 @@ import com.balance.hib.bean.UserDetails;
 import com.balance.hib.home.BsHeadHome;
 import com.balance.hib.home.TransferHome;
 import com.balance.hib.home.UserAccountDetailsHome;
+import com.balance.hib.util.BalanceCalUtil;
 import com.balance.util.CommonMethods;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -81,11 +82,17 @@ try{
         }
 
         if (cat != 0) {
+            
             BsHead head = new BsHeadHome().findById(new Integer(cat));
             UserAccountDetails saccount = new UserAccountDetailsHome().findById(new Integer(sacc));
-            UserAccountDetails daccount = new UserAccountDetailsHome().findById(new Integer(dacc));
+           
             UserDetails user = (UserDetails) request.getSession(false).getAttribute("user");
-            
+
+            if(cat==44)
+            {
+              dacc= BalanceCalUtil.getAcIdForCash(user.getUserId());
+            }
+             UserAccountDetails daccount = new UserAccountDetailsHome().findById(new Integer(dacc));
             Transfer transfer = new Transfer();
             //(head,account,date,amt,remarks);
             transfer.setBsHead(head);

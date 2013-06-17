@@ -6,6 +6,7 @@ package com.balance.action;
 
 import com.balance.hib.bean.ExpenseEntry;
 import com.balance.hib.bean.IncomeEntry;
+import com.balance.hib.bean.Transfer;
 import com.balance.hib.bean.UserAccountDetails;
 import com.balance.hib.bean.UserDetails;
 import com.balance.hib.home.BsHeadHome;
@@ -108,6 +109,122 @@ public class DropDownAjaxAction extends DispatchAction {
 
             String opt = request.getParameter("g_value").toString();
             System.out.println("\n--OPT--"+opt);
+
+              if (opt.equalsIgnoreCase("transfer") || opt == "transfer") {
+                 System.out.println("in user ");
+                String str = "<style type='text/css'>"
+                        + "table.altrowstable {"
+                        + "	font-family: verdana,arial,sans-serif;"
+                        + "	font-size:11px;"
+                        + "	color:#333333;"
+                        + "	border-width:0px;"
+                        + "	border-color: #a9c6c9;"
+                        + "	border-collapse: collapse;"
+                        + "	"
+                        + "}"
+                        + "table.altrowstable th {"
+                        + "	border-width: 1px;"
+                        + "	padding: 4px;"
+                        + "	border-style: solid;"
+                        + "	border-color: #a9c6c9;"
+                        + "}"
+                        + "table.altrowstable td {"
+                        + "	border-width: 1px;"
+                        + "	padding: 4px;"
+                        + "	border-style: solid;"
+                        + "	border-color: #a9c6c9;"
+                        + "}"
+                        + ".oddrowcolor{"
+                        + "<!--	background-color:#d4e3e5;-->"
+                        + "}"
+                        + ".evenrowcolor{"
+                        + "<!--	background-color:#c3dde0;-->"
+                        + "}"
+                        + "</style>";
+                StringBuilder output = new StringBuilder();
+                HttpSession session = request.getSession(false);
+                UserDetails userobj = (UserDetails) session.getAttribute("user");
+                List<Transfer> ls1 = CommonMethods.getTransferByUserId(userobj);
+                //         getUserIncomeByUserId(userobj.getUserId());
+                output.append("<table border='1' class='altrowstable'  id='t1'  align='center'>");
+                output.append("<thead> <tr><th> Transfer Date</th> <th>Source A/C</th>  <th>Destination A/C </th><th>Amount </th></tr>  </thead>");
+                for (Iterator it = ls1.iterator(); it.hasNext();) {
+                    Transfer transfer = (Transfer) it.next();
+                    output.append("<tr><td>");
+                    output.append(transfer.getTransferDate()).append("</td><td>");
+                    output.append(transfer.getUserAccountDetailsByTransferSaccount().getUserAccountName()).append("</td><td>");
+                 
+                    String destinationAC= transfer.getUserAccountDetailsByTransferDaccount()==null
+                          ? "-" :
+                      transfer.getUserAccountDetailsByTransferDaccount().getUserAccountName() ;
+                    output.append(destinationAC).append("</td><td>");
+                    output.append(transfer.getTransferAmount() ).append("</td>");
+                    output.append("</tr>");
+
+                }
+
+                output.append("</table>");
+                response.getWriter().write(output.toString());
+
+            }
+
+
+            if (opt.equalsIgnoreCase("bankaccount") || opt == "bankaccount") {
+                 System.out.println("in user ");
+                String str = "<style type='text/css'>"
+                        + "table.altrowstable {"
+                        + "	font-family: verdana,arial,sans-serif;"
+                        + "	font-size:11px;"
+                        + "	color:#333333;"
+                        + "	border-width:0px;"
+                        + "	border-color: #a9c6c9;"
+                        + "	border-collapse: collapse;"
+                        + "	"
+                        + "}"
+                        + "table.altrowstable th {"
+                        + "	border-width: 1px;"
+                        + "	padding: 4px;"
+                        + "	border-style: solid;"
+                        + "	border-color: #a9c6c9;"
+                        + "}"
+                        + "table.altrowstable td {"
+                        + "	border-width: 1px;"
+                        + "	padding: 4px;"
+                        + "	border-style: solid;"
+                        + "	border-color: #a9c6c9;"
+                        + "}"
+                        + ".oddrowcolor{"
+                        + "<!--	background-color:#d4e3e5;-->"
+                        + "}"
+                        + ".evenrowcolor{"
+                        + "<!--	background-color:#c3dde0;-->"
+                        + "}"
+                        + "</style>";
+                StringBuilder output = new StringBuilder();
+                HttpSession session = request.getSession(false);
+                UserDetails userobj = (UserDetails) session.getAttribute("user");
+                List<UserAccountDetails> ls1 = CommonMethods.getAccountDetailsByUser(userobj);
+                //         getUserIncomeByUserId(userobj.getUserId());
+                output.append("<table border='1' class='altrowstable'  id='t1'  align='center'>");
+                output.append("<thead> <tr><th> Account Name</th>"
+                        + " <th>Bank Name</th>  <th>Branch Name </th><th>Account No. </th><th>Opening Balance </th></tr>  </thead>");
+                for (Iterator it = ls1.iterator(); it.hasNext();) {
+                    UserAccountDetails user = (UserAccountDetails) it.next();
+                    output.append("<tr><td>");
+                    output.append(user.getUserAccountName()).append("</td><td>");
+                    output.append(user.getUserAccountBankName()).append("</td><td>");
+                    output.append(user.getUserAccountBankBranch() ).append("</td><td>");
+                    output.append(user.getUserAccountNo()).append("</td><td>");
+                    output.append(user.getOpeningBalance()).append("</td>");
+                    output.append("</tr>");
+
+                }
+
+                output.append("</table>");
+                response.getWriter().write(output.toString());
+
+            }
+
 
             if (opt.equalsIgnoreCase("income") || opt == "income") {
                  System.out.println("in Income ");

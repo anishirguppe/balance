@@ -159,12 +159,12 @@ public class BalanceCalUtil {
                     List<UserAccountDetails> usels = UserAccountDetailsHome.findPayableAccountByUser(ud);
                     UserAccountDetails useds = usels.get(0);
                     Integer accountid = useds.getUserAccountId();
-                     Double expenseAmount1=0.0d;
+                    Double expenseAmount1 = 0.0d;
                     for (Iterator it1 = car.iterator(); it1.hasNext();) {
                         Object IncomeDetails1[] = (Object[]) it1.next();
                         Integer expenseAC1 = (Integer) IncomeDetails[0];
                         if (expenseAC1 == accountid) {
-                       expenseAmount1  = (Double) IncomeDetails[1]; // Income amount
+                            expenseAmount1 = (Double) IncomeDetails[1]; // Income amount
                             Integer cat1 = (Integer) IncomeDetails[2];
                             break;
                         }
@@ -201,7 +201,7 @@ public class BalanceCalUtil {
         try {
             Double sum = 0d;
 
-            System.out.println(" cyrrenst asset st" + currentAsset.entrySet());
+            System.out.println("****%%%%% All current  asset " + currentAsset.entrySet());
 
             for (Iterator it = expense.iterator(); it.hasNext();) {
                 Object IncomeDetails[] = (Object[]) it.next();
@@ -214,39 +214,48 @@ public class BalanceCalUtil {
                 Double crntAstOB = 0d;
                 Set s = currentAsset.keySet();
 
-                
+
                 if (s.contains(expenseAC)) {
                     try {
                         String key = Integer.toString(expenseAC);
                         crntAstOB = Double.parseDouble(currentAsset.get(expenseAC).toString());
-                        System.out.println("\n key  as" + key + " \t amount" + crntAstOB);
+                        System.out.println(" key  as" + key + " \t amount" + crntAstOB);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                   // opening bal or pervious opening balance
+                    // opening bal or pervious opening balance
                 }
+
                 if (cat == 4) { // for  Receivable
+                    System.out.println("In side Receivable Exp ");
                     UserDetails ud = new UserDetails();
                     ud.setUserId(userid);
                     List<UserAccountDetails> usels = UserAccountDetailsHome.findReceviableAccountByUser(ud);
                     UserAccountDetails useds = usels.get(0);
                     Integer accountid = useds.getUserAccountId();
-                    Double expenseAmount1=0.0d;
+                    Double expenseAmount1 = 0.0d;
                     for (Iterator it1 = expense.iterator(); it1.hasNext();) {
                         Object IncomeDetails1[] = (Object[]) it1.next();
                         Integer expenseAC1 = (Integer) IncomeDetails[0];
                         if (expenseAC1 == accountid) {
-                       expenseAmount1  = (Double) IncomeDetails[1]; // Income amount
+                            expenseAmount1 = (Double) IncomeDetails[1]; // Income amount
                             Integer cat1 = (Integer) IncomeDetails[2];
                             break;
                         }
                     }
                     crntAstOB = expenseAmount1 + expenseAmount;
                     // currentAsset.remove(4);
+
+                     System.out.println(" Account id"+accountid+"\t crst assetr obj "+crntAstOB);
                     currentAsset.put(accountid, crntAstOB);
-                    System.out.println(" cyrrenst asset st" + currentAsset.entrySet());
-                }
-                else {
+                    
+                } else if (UserAccountDetailsHome.isCreditCardAc(expenseAC)) // for Credit card
+                {
+                    System.out.println("In side Credit card logic  " + crntAstOB + "Amount " + expenseAmount);
+
+                    crntAstOB = crntAstOB + expenseAmount;
+                } else {
+                    System.out.println("In side Other ");
                     crntAstOB = crntAstOB - expenseAmount;
                 }
 
@@ -316,7 +325,7 @@ public class BalanceCalUtil {
 
 
         try {
-            UserAccountDetailsHome userAccountDetailsHome=new UserAccountDetailsHome();
+            UserAccountDetailsHome userAccountDetailsHome = new UserAccountDetailsHome();
             UserAccountDetails userAccountDetails;
             Integer cashInHand = getAcIdForCash(userid);
             List transferLS = calTransfer(userid);
@@ -331,9 +340,11 @@ public class BalanceCalUtil {
                 Double amount = (Double) trans[3];
 
                 System.out.println("cat" + cat + "\t sac " + sourceAC + "\t DAC" + destinationAC + "\t Amount " + amount);
+                //for add cash in hand
                 if (cat.equals(44)) {
+
                     System.out.println("inside cat 44 with ac CIH" + cashInHand);
-                    //for add cash in hand
+
                     Object key = cashInHand;
                     Double cashInHandAmount = Double.parseDouble(allasset.get(cashInHand).toString());
                     System.out.println("cash In hand " + cashInHandAmount);
@@ -352,26 +363,59 @@ public class BalanceCalUtil {
                 }//end if
                 else if (cat.equals(45)) {
 
-                    if(userAccountDetailsHome.isReceivableAC(sourceAC))
-                    {
 
+                    if (userAccountDetailsHome.isReceivableAC(sourceAC)) {
                     }
-                    System.out.println("inside cat 45");
-                    //for add  in destination ac
-                    Double destinationAmount = Double.parseDouble(allasset.get(destinationAC).toString());
 
-                    destinationAmount = destinationAmount + amount;
-                    // allasset.remove(destinationAC.toString());
-                    allasset.put(destinationAC, destinationAmount);
+                    if (UserAccountDetailsHome.isCreditCardAc(destinationAC)) {
+                        System.out.println("In side CC ");
+                        Double destinationAmount = Double.parseDouble(allasset.get(destinationAC).toString());
 
-                    // for deduct amount from source ac
-                    Double sourceACAmount = Double.parseDouble(allasset.get(sourceAC).toString());
+                        destinationAmount = destinationAmount - amount;
+                        // allasset.remove(destinationAC.toString());
+                        allasset.put(destinationAC, destinationAmount);
 
-                    sourceACAmount = sourceACAmount - amount;
-                    // allasset.remove(sourceAC.toString());
-                    allasset.put(sourceAC, sourceACAmount);
-                    System.out.println("Source ac bala " + allasset.get(sourceAC).toString() + "\t Destination  ac amount " + allasset.get(destinationAC).toString());
-                }
+                        // for deduct amount from source ac
+                        Double sourceACAmount = Double.parseDouble(allasset.get(sourceAC).toString());
+
+                        sourceACAmount = sourceACAmount - amount;
+                        // allasset.remove(sourceAC.toString());
+                        allasset.put(sourceAC, sourceACAmount);
+                        System.out.println(" CC  Source ac  " + allasset.get(sourceAC).toString() + "\t CC Destination  ac amount " + allasset.get(destinationAC).toString());
+                    }// end if loan acc
+                    else if (UserAccountDetailsHome.isLoanAc(destinationAC)) {
+                        Double destinationAmount = Double.parseDouble(allasset.get(destinationAC).toString());
+
+                        destinationAmount = destinationAmount - amount;
+                        // allasset.remove(destinationAC.toString());
+                        allasset.put(destinationAC, destinationAmount);
+
+                        // for deduct amount from source ac
+                        Double sourceACAmount = Double.parseDouble(allasset.get(sourceAC).toString());
+
+                        sourceACAmount = sourceACAmount - amount;
+                        // allasset.remove(sourceAC.toString());
+                        allasset.put(sourceAC, sourceACAmount);
+                    }// end if loan acc
+                    else {
+                        System.out.println("inside cat 44 45 ");
+                        //for add  in destination ac
+                        Double destinationAmount = Double.parseDouble(allasset.get(destinationAC).toString());
+
+                        destinationAmount = destinationAmount + amount;
+                        // allasset.remove(destinationAC.toString());
+                        allasset.put(destinationAC, destinationAmount);
+
+                        // for deduct amount from source ac
+                        Double sourceACAmount = Double.parseDouble(allasset.get(sourceAC).toString());
+
+                        sourceACAmount = sourceACAmount - amount;
+                        // allasset.remove(sourceAC.toString());
+                        allasset.put(sourceAC, sourceACAmount);
+                        System.out.println("Source ac bala " + allasset.get(sourceAC).toString() + "\t Destination  ac amount " + allasset.get(destinationAC).toString());
+                    } //end else
+
+                }//end 45 if
 
 
 
@@ -550,7 +594,7 @@ public class BalanceCalUtil {
     public static String printMapByAcNameInHtml(Map<Integer, Double> map) {
 
         StringBuilder content = new StringBuilder();
-        content.append("<table border='0.5'>");
+        content.append("<table border='0.5'  width='100%'>");
         UserAccountDetailsHome useracdao = new UserAccountDetailsHome();
         TreeMap<Integer, Double> d = new TreeMap<Integer, Double>();
         d.putAll(map);
@@ -560,11 +604,11 @@ public class BalanceCalUtil {
         for (Iterator it = key.iterator(); it.hasNext();) {
             Integer objectKEY = Integer.parseInt(it.next().toString());
             System.out.println("" + useracdao.findById(objectKEY).getUserAccountName() + "\t" + myFormatter.format(d.get(objectKEY)));
-            content.append("<tr><td>" + useracdao.findById(objectKEY).getUserAccountName() + "</td><td>" + myFormatter.format(d.get(objectKEY)) + "</td></tr>");
+            content.append("<tr><td style='padding-left:10px'>" + useracdao.findById(objectKEY).getUserAccountName() + "</td><td style='padding-right:10px'>" + myFormatter.format(d.get(objectKEY)) + "</td></tr>");
             sum = sum + Double.parseDouble(d.get(objectKEY).toString());
 
         }
-        content.append("<tr ><td style='border-top-style:dotted'>Total</td><td style='border-top-style:dotted'>" + myFormatter.format(sum) + "</td></tr>");
+        content.append("<tr ><td style='border-top-style:dotted;padding-left:10px'>Total</td><td style='border-top-style:dotted'>" + myFormatter.format(sum) + "</td></tr>");
         content.append("</table>");
 
 
@@ -579,17 +623,17 @@ public class BalanceCalUtil {
         DecimalFormat myFormatter = new DecimalFormat("###,###,###.###");
         double sum = 0d;
         StringBuilder content = new StringBuilder();
-        content.append("<table>");
+        content.append("<table width='100%'>");
         List incomeACWise = se.getNamedQuery("getCAR").setInteger("USERID", userid).list();
         for (Iterator it = incomeACWise.iterator(); it.hasNext();) {
             Object object[] = (Object[]) it.next();
             System.out.println("" + object[0] + " " + object[1] + "");
             Double val = Double.parseDouble(object[1].toString());
             //currentLi.put(Integer.parseInt(object[0].toString()), Double.parseDouble(object[1].toString()));
-            content.append("<tr> <td>" + object[0].toString().toUpperCase() + "</td> <td>" + myFormatter.format(val) + "</td> </tr>");
+            content.append("<tr> <td style='padding-left:10px'>" + object[0].toString().toUpperCase() + "</td> <td style='padding-right:10px'>" + myFormatter.format(val) + "</td> </tr>");
             sum = sum + val;
         }
-        content.append("<tr ><td style='border-top-style:dotted'>Total</td><td style='border-top-style:dotted'>" + myFormatter.format(sum) + "</td></tr>");
+        content.append("<tr ><td style='border-top-style:dotted;padding-left:10px''>Total</td><td style='border-top-style:dotted'>" + myFormatter.format(sum) + "</td></tr>");
         content.append("</table>");
         return content.toString();
     }
@@ -600,17 +644,17 @@ public class BalanceCalUtil {
         DecimalFormat myFormatter = new DecimalFormat("###,###,###.###");
         double sum = 0d;
         StringBuilder content = new StringBuilder();
-        content.append("<table>");
+        content.append("<table width='100%'>");
         List expWise = se.getNamedQuery("getEXP").setInteger("USERID", userid).list();
         for (Iterator it = expWise.iterator(); it.hasNext();) {
             Object object[] = (Object[]) it.next();
             System.out.println("" + object[0] + " " + object[1] + "");
             Double val = Double.parseDouble(object[1].toString());
             //currentLi.put(Integer.parseInt(object[0].toString()), Double.parseDouble(object[1].toString()));
-            content.append("<tr> <td>" + object[0].toString().toUpperCase() + "</td> <td>" + myFormatter.format(val) + "</td> </tr>");
+            content.append("<tr> <td style='padding-left:10px'>" + object[0].toString().toUpperCase() + "</td> <td>" + myFormatter.format(val) + "</td> </tr>");
             sum = sum + val;
         }
-        content.append("<tr ><td style='border-top-style:dotted'>Total</td><td style='border-top-style:dotted'>" + myFormatter.format(sum) + "</td></tr>");
+        content.append("<tr ><td style='border-top-style:dotted;padding-left:10px'>Total</td><td style='border-top-style:dotted'>" + myFormatter.format(sum) + "</td></tr>");
         content.append("</table>");
         return content.toString();
     }

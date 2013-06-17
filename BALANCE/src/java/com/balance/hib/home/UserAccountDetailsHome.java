@@ -209,6 +209,40 @@ public class UserAccountDetailsHome {
         }
     }
 
+    public static boolean isLoanAc(Integer destinationAC) {
+log.debug("finding UserAccountDetails instance by example");
+        try {
+
+            String q= "from UserAccountDetails u where u.bsHead=8 and u.userAccountId="+destinationAC;
+            List<UserAccountDetails> results = HibernateSessionFactory.getSession().createQuery(q).list();
+            log.debug("find by /acc successful, result size: " + results.size());
+
+            return results.size()>0 ? Boolean.TRUE : Boolean.FALSE;
+        }
+        catch(Exception e){
+
+            return Boolean.FALSE;
+        }
+        
+    }
+
+     public static boolean isCreditCardAc(Integer destinationAC) {
+
+         log.debug("finding UserAccountDetails instance by example");
+        try {
+
+            String q= "from UserAccountDetails u where u.bsHead=5 and u.userAccountId="+destinationAC;
+            List<UserAccountDetails> results = HibernateSessionFactory.getSession().createQuery(q).list();
+            log.debug("find by /acc successful, result size: " + results.size());
+
+            return results.size()>0 ? Boolean.TRUE : Boolean.FALSE;
+        }
+        catch(Exception e){
+
+            return Boolean.FALSE;
+        }
+
+    }
 
 }
 

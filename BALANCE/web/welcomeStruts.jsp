@@ -59,12 +59,12 @@ $(document).ready(function() {
             autoOpen: false,
             show: "blind",
             hide: "slide",
-            width: 560,
-            height: 460
+            width: 760,
+            height: 760
         
               });
         var width = $( "#dialogview,#dialog" ).dialog( "option", "width" );
-        $( "#dialogview,#dialog" ).dialog( "option", "width", 560 );
+        $( "#dialogview,#dialog" ).dialog( "option", "width", 760 );
 
   
         $( "#viewuser" ).click(function() {
@@ -112,7 +112,7 @@ $(document).ready(function() {
 function showUrlInDialog(url, options){
    // alert(url);
   options = options || {};
-  var tag = $("<div></div>"); //This tag will the hold the dialog content.
+  var tag = $("<div></div>");//.css({height:"350px", overflow:"auto" }); //This tag will the hold the dialog content.
   $.ajax({
     url: url,
     type: (options.type || 'GET'),
@@ -306,6 +306,9 @@ function showUrlInDialog(url, options){
             <td colspan="3"> <div style="padding-left:10px;">
                         <img src="images/transfer.jpg" width="80" height="80" alt="Transfer" />
                         <p><a href="#" onclick="showUrlInDialog('l_transfer.do', {error: function() { alert('Could not load form') }, title: 'Transfer' }); return false;">Transfer </a></p>
+                        <p><a href="#" onclick="showUrlInDialog('dropdownajax.do?method=myView&g_value=transfer', {error: function() { alert('Could not load form') }, title: 'Transfer' }); return false;">Transfer View </a></p>
+
+
                     </div>
                 
                 

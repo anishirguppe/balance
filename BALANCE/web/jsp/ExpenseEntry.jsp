@@ -187,6 +187,7 @@ $jq1("#expense").find(document).ready(function() {
                           <img id="loading1" src="images/loading.gif" title="Loading" style="display: none;" />
                         </td>
                 </tr>
+                <tr><td>&nbsp;</td><td></td></tr>
                 <tr><td>
                      Sub Category
                     </td>                    <td>
@@ -195,6 +196,7 @@ $jq1("#expense").find(document).ready(function() {
                         </html:select>
                         </td>
                 </tr>
+                <tr><td>&nbsp;</td><td></td></tr>
                 <tr id="reluser" ><td>
                         Relevant User
                     </td>                    <td>
@@ -204,6 +206,7 @@ $jq1("#expense").find(document).ready(function() {
                         </html:select>
                         </td>
                 </tr>
+                <tr><td>&nbsp;</td><td></td></tr>
                 <tr><td>
                         Relevant Account
                     </td>                    <td>
@@ -213,26 +216,31 @@ $jq1("#expense").find(document).ready(function() {
                         </html:select>
                         </td>
                 </tr>
+                <tr><td>&nbsp;</td><td></td></tr>
                 <tr><td>
                       Date
                     </td>                    <td>
                         <html:text property="date" styleClass="required date" styleId="datepicker"/></td>
                 </tr>
+                <tr><td>&nbsp;</td><td></td></tr>
                 <tr><td>
                      Amount (INR)
                     </td>                    <td>
                         <html:text property="amount"  styleClass="required number" styleId="amount"/></td>
                 </tr>
+                <tr><td>&nbsp;</td><td></td></tr>
                                 <tr><td>
                      Remarks
                     </td>                    <td>
                         <html:textarea property="remarks" styleId="remarksid" styleClass="required"  rows="5" cols="30"/></td>
                 </tr>
+                <tr><td>&nbsp;</td><td></td></tr>
                   <tr><td colspan="2" style="text-align: center;">           
                           <input type="submit" value="SUbmit" id="submit"  />
                         <html:reset onclick="  $('#error').hide('slow'), $('#success').hide('slow')"/>
                                    </td>
                     </tr>
+                    <tr><td>&nbsp;</td><td></td></tr>
             </table>
         </html:form>
         </div>
