@@ -82,13 +82,12 @@ group by h.BS_Head_Id,i.Income_Account
 
 ]]>
 </sql-query>
-
+<!--and h.BS_Head_Id=s.BS_Head_ID-->
 <sql-query name="getExpenseACwise">
 <![CDATA[
 select e.Expense_Account,sum( e.Expense_Amount), h.BS_Head_Id
 from ExpenseEntry e,BS_Group g, BS_Head h, BS_Sub_Head s
 where g.BS_Id=h.BS_Id
-and h.BS_Head_Id=s.BS_Head_ID
 and e.Expense_Sub_Category=s.BS_Sub_Head_Id
 and e.User_Id=:USERID
 and e.Expense_Category=h.BS_Head_Id

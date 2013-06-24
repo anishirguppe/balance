@@ -166,6 +166,23 @@ public class UserDetailsHome {
 		}
 	}
 
+    public List findForLogin(String propertyName, Object value) {
+		      System.out.println("finding Userdetails instance with property: " + propertyName
+				+ ", value: " + value);
+		try {
+			String queryString = "from UserDetails as model where model.userRelevantId=0 and model."
+					+ propertyName + "= ?";
+                        System.out.println("qry"+queryString);
+		org.hibernate.Query queryObject =HibernateSessionFactory.getSession().createQuery(queryString);
+			queryObject.setParameter(0, value);
+                        System.out.println("queryObject.list()"+queryObject.list());
+			return queryObject.list();
+		} catch (RuntimeException re) {
+                    System.out.println("find by property name failed"+re);
+			throw re;
+		}
+	}
+
     public int isValidProfileName(String currentProfileName) {
 
         System.out.println("in isValidProfileName"+currentProfileName);

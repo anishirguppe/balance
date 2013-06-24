@@ -62,7 +62,7 @@ public class LoginAction extends org.apache.struts.action.Action {
         }
         UserDetailsHome udh = new UserDetailsHome();
 
-        List ls = udh.findByProperty("userProfileName", username);
+        List ls = udh.findForLogin("userProfileName", username);
 
         System.out.println(" User size ls size" + ls.size());
         for (Iterator it = ls.iterator(); it.hasNext();) {

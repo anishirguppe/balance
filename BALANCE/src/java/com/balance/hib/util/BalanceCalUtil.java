@@ -252,7 +252,7 @@ public class BalanceCalUtil {
                 } else if (UserAccountDetailsHome.isCreditCardAc(expenseAC)) // for Credit card
                 {
                     System.out.println("In side Credit card logic  " + crntAstOB + "Amount " + expenseAmount);
-
+ 
                     crntAstOB = crntAstOB + expenseAmount;
                 } else {
                     System.out.println("In side Other ");
@@ -364,10 +364,28 @@ public class BalanceCalUtil {
                 else if (cat.equals(45)) {
 
 
-                    if (userAccountDetailsHome.isReceivableAC(sourceAC)) {
-                    }
+                   if (UserAccountDetailsHome.isCreditCardAc(sourceAC)) {
+                        System.out.println("In side Source CC ");
+                        Double destinationAmount = Double.parseDouble(allasset.get(destinationAC).toString());
+                        Double sourceACAmount = Double.parseDouble(allasset.get(sourceAC).toString());
+                        if(destinationAmount<0)
+                        destinationAmount = destinationAmount -amount;
+                        else
+                        destinationAmount = destinationAmount + amount;
+                        // for deduct amount from source ac
+                        if(sourceACAmount<0)
+                            sourceACAmount = sourceACAmount +amount;
+                        else 
+                           sourceACAmount = sourceACAmount - amount;
 
-                    if (UserAccountDetailsHome.isCreditCardAc(destinationAC)) {
+                        allasset.put(destinationAC, destinationAmount);
+                        allasset.remove(sourceAC);
+                        allasset.put(sourceAC, sourceACAmount);
+
+                        System.out.println(" CC  Source ac  " + allasset.get(sourceAC).toString() + "\t CC Destination  ac amount " + allasset.get(destinationAC).toString());
+                    }// end if cc acc
+
+                   else if (UserAccountDetailsHome.isCreditCardAc(destinationAC)) {
                         System.out.println("In side CC ");
                         Double destinationAmount = Double.parseDouble(allasset.get(destinationAC).toString());
 
@@ -382,7 +400,7 @@ public class BalanceCalUtil {
                         // allasset.remove(sourceAC.toString());
                         allasset.put(sourceAC, sourceACAmount);
                         System.out.println(" CC  Source ac  " + allasset.get(sourceAC).toString() + "\t CC Destination  ac amount " + allasset.get(destinationAC).toString());
-                    }// end if loan acc
+                    }// end if cc acc
                     else if (UserAccountDetailsHome.isLoanAc(destinationAC)) {
                         Double destinationAmount = Double.parseDouble(allasset.get(destinationAC).toString());
 

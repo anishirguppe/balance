@@ -8,6 +8,7 @@ import com.balance.hib.bean.BsGroup;
 import com.balance.hib.bean.BsHead;
 import com.balance.hib.bean.UserDetails;
 import com.balance.hib.home.*;
+import com.balance.hib.util.HibernateSessionFactory;
 import com.balance.util.CommonMethods;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -175,4 +176,12 @@ System.out.println("\n *****### before call super.getSession" + session.toString
 
         doGet(request, response);
     }
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        HibernateSessionFactory.getSession();
+    }
+
+
 }
